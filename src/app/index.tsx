@@ -1,30 +1,33 @@
 
 import { FontAwesomeFreeSolid } from "@react-native-vector-icons/fontawesome-free-solid";
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
+export const router = useRouter();
 export default function Index() {
   type Todo = {
     id: number;
     text: string;
   }
-  const [id, setId] = useState<number>(1);
   const [todo, setTodo] = useState<Todo[]>([]);
-  const addTodo = () => {
-    setTodo([...todo, {id: id, text: '해야할 일'+id}])
-    setId(id+1);
-  }
   const removeTodo = (selectedId: number) => {
     setTodo(prevTodo => prevTodo.filter(todo => todo.id !== selectedId))
   }
   
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.headerContainer}>
         <Text style={styles.headerTitle}>Todolist</Text>
-        <TouchableOpacity onPress={() => addTodo()}>
-          <FontAwesomeFreeSolid name="plus" size={20}/>
-        </TouchableOpacity>
+        <View style={styles.menu}>
+          <TouchableOpacity onPress={() => router.push('/form/settingForm')}>
+            <FontAwesomeFreeSolid name="gear" size={20}/>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => router.push('/form/addFrom')}>
+            <FontAwesomeFreeSolid name="plus" size={20}/>
+          </TouchableOpacity>
+        </View>
       </View>
       <View>
         {todo.map((item) => (
@@ -34,7 +37,7 @@ export default function Index() {
           </View>
         ))}
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -56,6 +59,10 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontWeight: 600,
     fontSize: 20
+  },
+  menu: {
+    flexDirection: 'row',
+    gap: 10
   },
   checkButton: {
     width: 10,
