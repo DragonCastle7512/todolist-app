@@ -44,7 +44,14 @@ export default function Index() {
         {todo.map((item) => (
           <View key={item.id} style={styles.todolist}>
             <TouchableOpacity onPress={() => removeTodo(item.id)} style={styles.checkButton}/>
-            <Text style={styles.viewText}>{item.text}</Text>
+            <TouchableOpacity onPress={() => 
+              router.push({
+                pathname: '/form/detail/[id]',
+                params: { id: String(item.id) }
+              })
+            }>
+              <Text style={styles.viewText}>{item.text}</Text>
+            </TouchableOpacity>
           </View>
         ))}
       </View>

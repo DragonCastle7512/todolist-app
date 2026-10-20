@@ -24,6 +24,13 @@ export async function saveTodolist(text: string): Promise<void> {
   return;
 }
 
+export async function editTodolist(id: number, text: string): Promise<void> {
+  const todolist = (await getTodolist()).filter(todo => todo.id !== id);
+  const editTodo = { id, text };
+  await AsyncStorage.setItem(TODOLIST_KEY, JSON.stringify([...todolist, editTodo]));
+  return;
+}
+
 export async function removeTodolist(id: number): Promise<Todo[]> {
   const todolist = (await getTodolist()).filter(todo => todo.id !== id)
   await AsyncStorage.setItem(TODOLIST_KEY, JSON.stringify(todolist));

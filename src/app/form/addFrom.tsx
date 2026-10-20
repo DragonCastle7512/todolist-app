@@ -11,9 +11,7 @@ export default function addForm() {
     await saveTodolist(text);
     router.navigate('/');
   };
-  const handleChangeText = (text: string) => {
-    setText(text);
-  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.headerContainer}>
@@ -27,7 +25,7 @@ export default function addForm() {
           style={styles.input}
           placeholder="제목"
           value={text}
-          onChangeText={(text) => handleChangeText(text)}
+          onChangeText={(text) => setText(text)}
           autoCapitalize="none"
         />
         <Button title="추가하기" onPress={handleSubmit} />
