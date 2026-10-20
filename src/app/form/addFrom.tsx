@@ -1,3 +1,4 @@
+import { saveTodolist } from '@/utils/todoStore';
 import FontAwesomeFreeSolid from "@react-native-vector-icons/fontawesome-free-solid";
 import { router } from "expo-router";
 import { useState } from "react";
@@ -6,8 +7,9 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function addForm() {
   const [text, setText] = useState<string>("");
-  const handleSubmit = () => {
-    console.log('Submitted:', text);
+  const handleSubmit = async () => {
+    await saveTodolist(text);
+    router.navigate('/');
   };
   const handleChangeText = (text: string) => {
     setText(text);

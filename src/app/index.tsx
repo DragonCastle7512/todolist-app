@@ -1,19 +1,30 @@
 
+import { Todo } from "@/types/todolist";
+import { getTodolist, removeTodolist } from "@/utils/todoStore";
 import { FontAwesomeFreeSolid } from "@react-native-vector-icons/fontawesome-free-solid";
-import { useRouter } from "expo-router";
-import { useState } from "react";
+import { useFocusEffect, useRouter } from "expo-router";
+import { useCallback, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export const router = useRouter();
 export default function Index() {
-  type Todo = {
-    id: number;
-    text: string;
-  }
   const [todo, setTodo] = useState<Todo[]>([]);
-  const removeTodo = (selectedId: number) => {
-    setTodo(prevTodo => prevTodo.filter(todo => todo.id !== selectedId))
+
+  useFocusEffect(
+    useCallback(() => {
+      let active = true;
+      (async () => {
+        const todos = await getTodolist();
+        if(active) setTodo(todos);
+      })();
+
+      return () => active = false;
+    }, [])
+  );
+
+  const removeTodo = async (selectedId: number) => {
+    setTodo(await removeTodolist(selectedId));
   }
   
   return (
