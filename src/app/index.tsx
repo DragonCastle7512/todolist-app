@@ -1,15 +1,17 @@
 import { Todo } from "@/types/todolist";
 import { getTodolist, removeTodolist } from "@/utils/todoStore";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { FontAwesomeFreeSolid } from "@react-native-vector-icons/fontawesome-free-solid";
 import { useFocusEffect, useRouter } from "expo-router";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export const router = useRouter();
 export default function Index() {
   const [todo, setTodo] = useState<Todo[]>([]);
-
+  const [textSize, setTextSize] = useState<number>(18);
+  
   useFocusEffect(
     useCallback(() => {
       let active = true;
@@ -21,6 +23,12 @@ export default function Index() {
       return () => active = false;
     }, [])
   );
+  useEffect(() => {
+    (async () => {
+      const textSize = await AsyncStorage.getItem('@textSize');
+      if(textSize) setTextSize(Number(textSize));
+    })();
+  })
 
   const removeTodo = async (selectedId: number) => {
     setTodo(await removeTodolist(selectedId));
@@ -86,7 +94,7 @@ export default function Index() {
               <View key={item.id} style={styles.todoCard}>
                 <TouchableOpacity
                   onPress={() => removeTodo(item.id)}
-                  style={styles.checkButton}
+                  style={[styles.checkButton, {width: textSize-5, height: textSize-5}]}
                   hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
                   activeOpacity={0.6}
                   accessibilityLabel="완료 처리"
@@ -104,7 +112,7 @@ export default function Index() {
                     })
                   }
                 >
-                  <Text style={styles.todoText} numberOfLines={2}>
+                  <Text style={[styles.todoText, { fontSize: textSize }]} numberOfLines={2}>
                     {item.text}
                   </Text>
                   <FontAwesomeFreeSolid
@@ -179,9 +187,11 @@ const styles = StyleSheet.create({
     elevation: 1,
   },
   checkButton: {
-    width: 20,
-    height: 20,
-    borderRadius: 13,
+    minWidth: 18,
+    minHeight: 18,
+    maxWidth: 36,
+    maxHeight: 36,
+    borderRadius: 30,
     borderWidth: 2,
     borderColor: "#CBD5E1",
     alignItems: "center",
@@ -199,14 +209,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-        paddingVertical: 20,
+    paddingVertical: 20,
   },
   todoText: {
     flex: 1,
-    fontSize: 15,
     fontWeight: "500",
     color: "#1E293B",
-    lineHeight: 22,
     marginRight: 10,
   },
   emptyContainer: {

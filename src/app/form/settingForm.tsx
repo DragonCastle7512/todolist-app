@@ -1,15 +1,22 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import Slider from "@react-native-community/slider";
 import { FontAwesomeFreeSolid } from "@react-native-vector-icons/fontawesome-free-solid";
 import { router } from "expo-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function SettingForm() {
   const [textSize, setTextSize] = useState<number>(18);
+  useEffect(() => {
+    (async () => {
+      const size = await AsyncStorage.getItem('@textSize') || 18;
+      setTextSize(Number(size));
+    })();
+  }, []);
 
-  const handleSubmit = () => {
-    console.log('Submitted:', textSize);
+  const handleSubmit = async () => {
+    await AsyncStorage.setItem('@textSize', String(textSize))
     router.back();
   };
 
@@ -49,24 +56,24 @@ export default function SettingForm() {
               <Slider
                 style={styles.slider}
                 minimumValue={12}
-                maximumValue={32}
+                maximumValue={48}
                 step={1}
                 value={textSize}
-                onValueChange={(val) => setTextSize(val)}
+                onValueChange={(val) => {if(val) setTextSize(val)}}
                 minimumTrackTintColor="#4F46E5"
                 maximumTrackTintColor="#E2E8F0"
                 thumbTintColor="#4F46E5"
               />
               <View style={styles.sliderLabels}>
                 <Text style={styles.sliderLabelText}>작게 (12px)</Text>
-                <Text style={styles.sliderLabelText}>크게 (32px)</Text>
+                <Text style={styles.sliderLabelText}>크게 (48px)</Text>
               </View>
             </View>
 
             <View style={styles.previewSection}>
               <Text style={styles.previewLabel}>미리보기</Text>
               <View style={styles.previewBox}>
-                <View style={styles.previewCheckCircle} />
+                <View style={[styles.previewCheckCircle, {width: textSize, height: textSize}]} />
                 <Text
                   style={[styles.previewText, { fontSize: textSize }]}
                   numberOfLines={2}
@@ -215,9 +222,11 @@ const styles = StyleSheet.create({
     minHeight: 64,
   },
   previewCheckCircle: {
-    width: 20,
-    height: 20,
-    borderRadius: 10,
+    minWidth: 18,
+    minHeight: 18,
+    maxWidth: 36,
+    maxHeight: 36,
+    borderRadius: 30,
     borderWidth: 2,
     borderColor: "#CBD5E1",
     marginRight: 12,
