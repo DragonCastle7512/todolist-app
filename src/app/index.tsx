@@ -1,13 +1,17 @@
 import { Todo } from "@/types/todolist";
 import { getTodolist, removeTodolist } from "@/utils/todoStore";
+import { widgetTaskHandler } from "@/widgets/widgetHandler";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { FontAwesomeFreeSolid } from "@react-native-vector-icons/fontawesome-free-solid";
 import { useFocusEffect, useRouter } from "expo-router";
 import { useCallback, useEffect, useState } from "react";
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { registerWidgetTaskHandler } from "react-native-android-widget";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+registerWidgetTaskHandler(widgetTaskHandler);
 export const router = useRouter();
+
 export default function Index() {
   const [todo, setTodo] = useState<Todo[]>([]);
   const [textSize, setTextSize] = useState<number>(18);

@@ -35,7 +35,24 @@
         }
       ],
       "@react-native-vector-icons/fontawesome-free-solid",
-      "@react-native-vector-icons/lucide"
+      "@react-native-vector-icons/lucide",
+      [
+        "react-native-android-widget",
+        {
+          "widgets": [
+            {
+              "name": "Todolist",
+              "label": "Todolist",
+              "minWidth": "144dp",
+              "minHeight": "144dp",
+              "targetCellWidth": 2,
+              "targetCellHeight": 2,
+              "description": "위젯으로 할 일을 추가하고 간편하게 관리하세요.",
+              "previewImage": "./assets/images/icon.png"
+            }
+          ]
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,
