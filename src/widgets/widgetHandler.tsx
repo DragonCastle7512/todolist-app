@@ -1,3 +1,5 @@
+import { getTodolist } from '@/utils/todoStore';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import type { WidgetTaskHandlerProps } from 'react-native-android-widget';
 import { TodoWidget } from './todoWidget';
 
@@ -10,17 +12,13 @@ export async function widgetTaskHandler(props: WidgetTaskHandlerProps) {
   const Widget =
     nameToWidget[widgetInfo.widgetName as keyof typeof nameToWidget];
 
+  const todoData = await getTodolist();
+  const textSize = await AsyncStorage.getItem('@textSize');
   switch (props.widgetAction) {
     case 'WIDGET_ADDED':
-      props.renderWidget(<Widget />);
-      break;
-
     case 'WIDGET_UPDATE':
-      // Not needed for now
-      break;
-
     case 'WIDGET_RESIZED':
-      // Not needed for now
+      props.renderWidget(<Widget todo={todoData} textSize={Number(textSize)}/>);
       break;
 
     case 'WIDGET_DELETED':
