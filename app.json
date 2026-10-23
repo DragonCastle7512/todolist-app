@@ -47,6 +47,7 @@
               "minHeight": "144dp",
               "targetCellWidth": 2,
               "targetCellHeight": 2,
+              "resizeMode": "horizontal|vertical",
               "description": "위젯으로 할 일을 추가하고 간편하게 관리하세요.",
               "previewImage": "./assets/images/icon.png"
             }

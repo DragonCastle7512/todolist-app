@@ -5,11 +5,13 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { FontAwesomeFreeSolid } from "@react-native-vector-icons/fontawesome-free-solid";
 import { useFocusEffect, useRouter } from "expo-router";
 import { useCallback, useEffect, useState } from "react";
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { registerWidgetTaskHandler } from "react-native-android-widget";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-registerWidgetTaskHandler(widgetTaskHandler);
+if (Platform.OS !== 'web') {
+  registerWidgetTaskHandler(widgetTaskHandler);
+}
 export const router = useRouter();
 
 export default function Index() {
