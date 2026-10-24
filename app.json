@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "todolist-app",
-    "slug": "todolist-app",
+    "name": "Todo Checker",
+    "slug": "Todo Checker",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "testapp",
+    "scheme": "todoapp",
     "userInterfaceStyle": "automatic",
     "ios": {
       "icon": "./assets/expo.icon"
@@ -18,7 +18,7 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
-      "package": "com.dstle.todolist"
+      "package": "com.dstle.todochecker"
     },
     "web": {
       "output": "static",
@@ -41,8 +41,8 @@
         {
           "widgets": [
             {
-              "name": "Todolist",
-              "label": "Todolist",
+              "name": "TodoChecker",
+              "label": "Todo Checker",
               "minWidth": "144dp",
               "minHeight": "144dp",
               "targetCellWidth": 2,

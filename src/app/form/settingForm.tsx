@@ -1,4 +1,5 @@
 import { routeBackOrExit } from "@/utils/navigatorUtils";
+import { updateWidget } from "@/utils/widgetUtils";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Slider from "@react-native-community/slider";
 import { FontAwesomeFreeSolid } from "@react-native-vector-icons/fontawesome-free-solid";
@@ -17,6 +18,7 @@ export default function SettingForm() {
 
   const handleSubmit = async () => {
     await AsyncStorage.setItem('@textSize', String(textSize))
+    updateWidget({textSize});
     routeBackOrExit();
   };
 

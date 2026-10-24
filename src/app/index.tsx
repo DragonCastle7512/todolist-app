@@ -23,6 +23,7 @@ export default function Index() {
       let active = true;
       (async () => {
         const todos = await getTodolist();
+        todos.sort((a, b) => a.id - b.id);
         if(active) setTodo(todos);
       })();
 

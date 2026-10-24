@@ -1,10 +1,10 @@
-import { getTodolist } from '@/utils/todoStore';
+import { getTodolist, removeTodolist } from '@/utils/todoStore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import type { WidgetTaskHandlerProps } from 'react-native-android-widget';
 import { TodoWidget } from './todoWidget';
 
 const nameToWidget = {
-  Todolist: TodoWidget,
+  TodoChecker: TodoWidget,
 };
 
 export async function widgetTaskHandler(props: WidgetTaskHandlerProps) {
@@ -16,19 +16,16 @@ export async function widgetTaskHandler(props: WidgetTaskHandlerProps) {
   const textSize = await AsyncStorage.getItem('@textSize');
   switch (props.widgetAction) {
     case 'WIDGET_ADDED':
-    case 'WIDGET_UPDATE':
     case 'WIDGET_RESIZED':
       props.renderWidget(<Widget todo={todoData} textSize={Number(textSize)}/>);
       break;
-
-    case 'WIDGET_DELETED':
-      // Not needed for now
-      break;
-
     case 'WIDGET_CLICK':
-      // Not needed for now
+      const action = props.clickAction;
+      if(action === 'REMOVE_TODO') {
+        const todoId = props.clickActionData?.id;
+        await removeTodolist(Number(todoId));
+      }
       break;
-
     default:
       break;
   }

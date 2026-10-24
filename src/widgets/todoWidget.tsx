@@ -15,7 +15,7 @@ const ADD_ICON_SVG ='<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewB
 
 export function TodoWidget({ todo = [], textSize = 14 }: TodoWidgetProps) {
   const hasItems = todo && todo.length > 0;
-  console.log(todo, textSize)
+  todo.sort((a, b) => a.id - b.id);
 
   return (
     <FlexWidget
@@ -58,7 +58,10 @@ export function TodoWidget({ todo = [], textSize = 14 }: TodoWidgetProps) {
               justifyContent: 'center',
               alignItems: 'center',
             }}
-            clickAction="OPEN_SETTING_SCREEN" 
+            clickAction="OPEN_URI" 
+            clickActionData={{
+              uri: 'todoapp://form/settingForm'
+            }}
           >
             <SvgWidget svg={SETTINGS_ICON_SVG} style={{ width: 22, height: 22 }}/>
           </FlexWidget>
@@ -70,7 +73,10 @@ export function TodoWidget({ todo = [], textSize = 14 }: TodoWidgetProps) {
               justifyContent: 'center',
               alignItems: 'center',
             }}
-            clickAction="OPEN_ADD_SCREEN" 
+            clickAction="OPEN_URI" 
+            clickActionData={{
+              uri: 'todoapp://form/addForm'
+            }}
           >
             <SvgWidget svg={ADD_ICON_SVG} style={{ width: 22, height: 22 }}/>
           </FlexWidget>
@@ -112,7 +118,7 @@ export function TodoWidget({ todo = [], textSize = 14 }: TodoWidgetProps) {
             flex: 1,
           }}
         >
-          {todo.slice(0, 4).map((item) => (
+          {todo.map((item) => (
             <FlexWidget
               key={item.id}
               style={{
@@ -123,13 +129,16 @@ export function TodoWidget({ todo = [], textSize = 14 }: TodoWidgetProps) {
                 borderBottomWidth: 1,
                 borderBottomColor: "#E2E8F0",
               }}
-              clickAction="OPEN_DETAIL"
-              clickActionData={{ id: String(item.id) }}
+              clickAction="OPEN_URI"
+              clickActionData={{
+                uri: `todoapp://form/detail/${item.id}`, 
+                id: String(item.id) 
+              }}
             >
               <FlexWidget
                 style={{
-                  width: Math.max(textSize - 5, 14),
-                  height: Math.max(textSize - 5, 14),
+                  width: Math.max(textSize - 5, 16),
+                  height: Math.max(textSize - 5, 16),
                   borderRadius: 999,
                   borderWidth: 2,
                   borderColor: '#CBD5E1',
@@ -138,7 +147,7 @@ export function TodoWidget({ todo = [], textSize = 14 }: TodoWidgetProps) {
                   alignItems: 'center',
                 }}
                 clickAction="REMOVE_TODO"
-                clickActionData={{ id: String(item.id) }}
+                clickActionData={{ id: item.id }}
               />
               <TextWidget
                 text={item.text}
