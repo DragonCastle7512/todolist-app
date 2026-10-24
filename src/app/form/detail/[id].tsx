@@ -1,4 +1,4 @@
-import { router } from "@/app";
+import { routeBackOrExit } from "@/utils/navigatorUtils";
 import { editTodolist, getTodolist } from "@/utils/todoStore";
 import FontAwesomeFreeSolid from "@react-native-vector-icons/fontawesome-free-solid";
 import { useLocalSearchParams } from "expo-router";
@@ -20,7 +20,7 @@ export default function DetailForm() {
 
   const handleSubmit = async () => {
     await editTodolist(Number(id), text); 
-    router.back();
+    routeBackOrExit();
   };
 
   const isSubmittable = text.trim().length > 0;
@@ -37,7 +37,7 @@ export default function DetailForm() {
               <TouchableOpacity
                 style={styles.backButton}
                 activeOpacity={0.7}
-                onPress={() => router.back()}
+                onPress={() => routeBackOrExit()}
                 accessibilityLabel="뒤로 가기"
               >
                 <FontAwesomeFreeSolid name="arrow-left" size={16} color="#334155" />
@@ -98,7 +98,7 @@ export default function DetailForm() {
                 <TouchableOpacity
                   style={styles.cancelButton}
                   activeOpacity={0.7}
-                  onPress={() => router.back()}
+                  onPress={() => routeBackOrExit()}
                 >
                   <Text style={styles.cancelButtonText}>취소</Text>
                 </TouchableOpacity>

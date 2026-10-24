@@ -1,7 +1,7 @@
+import { routeBackOrExit } from "@/utils/navigatorUtils";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Slider from "@react-native-community/slider";
 import { FontAwesomeFreeSolid } from "@react-native-vector-icons/fontawesome-free-solid";
-import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -17,7 +17,7 @@ export default function SettingForm() {
 
   const handleSubmit = async () => {
     await AsyncStorage.setItem('@textSize', String(textSize))
-    router.back();
+    routeBackOrExit();
   };
 
   return (
@@ -28,7 +28,7 @@ export default function SettingForm() {
             <TouchableOpacity
               style={styles.backButton}
               activeOpacity={0.7}
-              onPress={() => router.back()}
+              onPress={() => routeBackOrExit()}
               accessibilityLabel="뒤로 가기"
             >
               <FontAwesomeFreeSolid name="arrow-left" size={16} color="#334155" />
