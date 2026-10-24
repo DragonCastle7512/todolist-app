@@ -41,7 +41,7 @@ export default function Index() {
   };
 
   return (
-    <SafeAreaView style={styles.safeArea} edges={["top", "left", "right"]}>
+    <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <View style={styles.headerContainer}>
           <View style={styles.headerMain}>
