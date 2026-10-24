@@ -60,7 +60,7 @@ export default function Index() {
               <TouchableOpacity
                 style={styles.iconButton}
                 activeOpacity={0.7}
-                onPress={() => router.push("/form/addFrom")}
+                onPress={() => router.push("/form/addForm")}
                 accessibilityLabel="할 일 추가"
               >
                 <FontAwesomeFreeSolid name="plus" size={18} color="#475569" />
@@ -85,7 +85,7 @@ export default function Index() {
             <TouchableOpacity
               style={styles.emptyButton}
               activeOpacity={0.8}
-              onPress={() => router.push("/form/addFrom")}
+              onPress={() => router.push("/form/addForm")}
             >
               <FontAwesomeFreeSolid name="plus" size={14} color="#FFFFFF" />
               <Text style={styles.emptyButtonText}>추가하기</Text>
