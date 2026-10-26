@@ -14,6 +14,7 @@ export async function widgetTaskHandler(props: WidgetTaskHandlerProps) {
   
   switch (props.widgetAction) {
     case 'WIDGET_ADDED':
+    case 'WIDGET_UPDATE':
     case 'WIDGET_RESIZED':
       const [todoData, textSize] = await Promise.all([                                                                                               
         getTodolist(),                                                                                                                               

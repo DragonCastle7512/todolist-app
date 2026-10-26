@@ -126,14 +126,8 @@ export function TodoWidget({ todo = [], textSize = 14 }: TodoWidgetProps) {
                 width: 'match_parent',
                 flexDirection: 'row',
                 alignItems: 'center',
-                paddingVertical: 20,
                 borderBottomWidth: 1,
                 borderBottomColor: "#E2E8F0",
-              }}
-              clickAction="OPEN_URI"
-              clickActionData={{
-                uri: `todoapp://form/detail/${item.id}`, 
-                id: String(item.id) 
               }}
             >
               <FlexWidget
@@ -150,13 +144,27 @@ export function TodoWidget({ todo = [], textSize = 14 }: TodoWidgetProps) {
                 clickAction="REMOVE_TODO"
                 clickActionData={{ id: item.id }}
               />
-              <TextWidget
-                text={item.text}
-                style={{
-                  fontSize: textSize || 14,
-                  color: '#1E293B',
-                }}
-              />
+              <FlexWidget
+                style={{                                                                                                                                     
+                  width: 'match_parent',
+                  paddingVertical: 20,
+                  paddingHorizontal: 4,
+                  justifyContent: 'center',
+                }}                                                                                                                                           
+                clickAction="OPEN_URI"                                                                                                                       
+                clickActionData={{                                                                                                                           
+                  uri: `todoapp://form/detail/${item.id}`,                                                                                                   
+                  id: String(item.id),                                                                                                                       
+                }}                                                                                                                                           
+              > 
+                <TextWidget
+                  text={item.text}
+                  style={{
+                    fontSize: textSize || 14,
+                    color: '#1E293B',
+                  }}
+                />
+              </FlexWidget>
             </FlexWidget>
           ))}
         </ListWidget>
