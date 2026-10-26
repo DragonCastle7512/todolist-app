@@ -18,7 +18,7 @@ export async function saveTodolist(text: string): Promise<void> {
   const todolist = await getTodolist();
   const newTodo = [...todolist, { id, text }];
   await AsyncStorage.setItem(TODOLIST_KEY, JSON.stringify(newTodo));
-  updateWidget({todolist: newTodo});
+  await updateWidget({todolist: newTodo});
   return;
 }
 
@@ -26,13 +26,14 @@ export async function editTodolist(id: number, text: string): Promise<void> {
   const todolist = (await getTodolist()).filter(todo => todo.id !== id);
   const editTodo = [...todolist, { id, text }];
   await AsyncStorage.setItem(TODOLIST_KEY, JSON.stringify(editTodo));
-  updateWidget({todolist: editTodo});
+  await updateWidget({todolist: editTodo});
   return;
 }
 
-export async function removeTodolist(id: number): Promise<Todo[]> {
+export async function removeTodolist(id: number, syncWidget: boolean = true): Promise<Todo[]> {
   const todolist = (await getTodolist()).filter(todo => todo.id !== id);
   await AsyncStorage.setItem(TODOLIST_KEY, JSON.stringify(todolist));
-  updateWidget({todolist})
+  //index.tsx 호출인 경우
+  if (syncWidget) await updateWidget({ todolist });
   return todolist;
 }

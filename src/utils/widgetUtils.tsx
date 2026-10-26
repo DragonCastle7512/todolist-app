@@ -9,7 +9,9 @@ interface ListInfo {
   textSize?: number;
 }
 export async function updateWidget(info: ListInfo) {
-  const size: number = info.textSize || Number(await AsyncStorage.getItem('@textSize'));
-  const todolist: Todo[] = info.todolist || await getTodolist();
+  const [size, todolist] = await Promise.all([                                                                                                       
+    info.textSize ? Promise.resolve(info.textSize) : AsyncStorage.getItem('@textSize').then((val) => Number(val) || 14),                                                                          
+    info.todolist ? Promise.resolve(info.todolist) : getTodolist(),                                                                                                                               
+  ]);
   await requestWidgetUpdate({ widgetName: 'TodoChecker', renderWidget: () => <TodoWidget todo={todolist} textSize={size}/> });
 }

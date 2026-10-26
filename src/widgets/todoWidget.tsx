@@ -1,8 +1,9 @@
 'use no memo';
 import {
   FlexWidget,
+  ListWidget,
   SvgWidget,
-  TextWidget,
+  TextWidget
 } from 'react-native-android-widget';
 
 interface TodoWidgetProps {
@@ -111,11 +112,11 @@ export function TodoWidget({ todo = [], textSize = 14 }: TodoWidgetProps) {
           />
         </FlexWidget>
       ) : (
-        <FlexWidget
+        <ListWidget
           style={{
-            flexDirection: 'column',
             width: 'match_parent',
-            flex: 1,
+            height: 'match_parent',
+            backgroundColor: '#ffffff'
           }}
         >
           {todo.map((item) => (
@@ -158,7 +159,7 @@ export function TodoWidget({ todo = [], textSize = 14 }: TodoWidgetProps) {
               />
             </FlexWidget>
           ))}
-        </FlexWidget>
+        </ListWidget>
       )}
     </FlexWidget>
   );
