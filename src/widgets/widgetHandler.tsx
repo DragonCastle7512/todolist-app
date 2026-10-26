@@ -20,7 +20,7 @@ export async function widgetTaskHandler(props: WidgetTaskHandlerProps) {
         getTodolist(),                                                                                                                               
         AsyncStorage.getItem('@textSize'),                                                                                                           
       ]);
-      props.renderWidget(<Widget todo={todoData} textSize={Number(textSize)}/>);
+      props.renderWidget(<Widget todo={todoData} textSize={Number(textSize)} height={widgetInfo.height}/>);
       break;
     case 'WIDGET_CLICK':
       const action = props.clickAction;
@@ -30,7 +30,7 @@ export async function widgetTaskHandler(props: WidgetTaskHandlerProps) {
           removeTodolist(Number(todoId), false),                                                             
           AsyncStorage.getItem('@textSize'),                                                                                                         
         ]);
-        props.renderWidget(<Widget todo={todoList} textSize={Number(textSize)}/>);
+        props.renderWidget(<Widget todo={todoList} textSize={Number(textSize)} height={widgetInfo.height}/>);
       }
       break;
     default:

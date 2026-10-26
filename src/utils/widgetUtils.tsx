@@ -13,5 +13,5 @@ export async function updateWidget(info: ListInfo) {
     info.textSize ? Promise.resolve(info.textSize) : AsyncStorage.getItem('@textSize').then((val) => Number(val) || 14),                                                                          
     info.todolist ? Promise.resolve(info.todolist) : getTodolist(),                                                                                                                               
   ]);
-  await requestWidgetUpdate({ widgetName: 'TodoChecker', renderWidget: () => <TodoWidget todo={todolist} textSize={size}/> });
+  await requestWidgetUpdate({ widgetName: 'TodoChecker', renderWidget: (widgetInfo) => <TodoWidget todo={todolist} textSize={size} height={widgetInfo.height}/> });
 }
