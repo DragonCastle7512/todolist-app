@@ -59,6 +59,8 @@ export default function AddForm() {
                 autoCapitalize="none"
                 autoFocus
                 returnKeyType="done"
+                multiline
+                scrollEnabled={false}
                 onSubmitEditing={handleSubmit}
               />
 
@@ -155,6 +157,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   input: {
+    textAlignVertical: 'top',
     backgroundColor: "#F8FAFC",
     borderWidth: 1.5,
     borderColor: "#E2E8F0",
